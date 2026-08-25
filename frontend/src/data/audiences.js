@@ -1,0 +1,18 @@
+export const AUDIENCES = [
+  'E-commerce',
+  'Profissionais da beleza',
+  'Publicitários',
+  'Personal trainers',
+  'Professores',
+  'Profissionais de TI',
+  'Bloggers',
+  'YouTubers',
+  'Artistas',
+  'Corretores',
+  'Engenheiros',
+  'Arquitetos',
+  'Profissionais da saúde',
+  'Profissionais liberais',
+  'Advogados',
+  'Comércio',
+]

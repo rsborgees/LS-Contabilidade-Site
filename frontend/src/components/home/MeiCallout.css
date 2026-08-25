@@ -1,0 +1,21 @@
+.mei {
+  background: var(--color-brand-light);
+}
+
+.mei__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.mei__title {
+  font-size: 1.5rem;
+  font-weight: 800;
+  margin-bottom: 8px;
+}
+
+.mei__text {
+  color: var(--color-text-muted);
+}

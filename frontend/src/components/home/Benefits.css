@@ -1,0 +1,55 @@
+.benefits__grid {
+  display: grid;
+  grid-template-columns: 0.8fr 1.2fr;
+  gap: var(--space-xl);
+  align-items: start;
+}
+
+.benefits__title {
+  font-size: clamp(1.6rem, 2.6vw, 2.1rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--color-text);
+  text-wrap: balance;
+  margin-bottom: var(--space-xs);
+}
+
+.benefits__description {
+  color: var(--color-text-muted);
+}
+
+.benefits__list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px 24px;
+}
+
+.benefits__item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-weight: 600;
+}
+
+.benefits__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 999px;
+  background: var(--color-brand-light);
+  color: var(--color-brand-dark);
+  font-size: 0.85rem;
+  flex-shrink: 0;
+}
+
+@media (max-width: 780px) {
+  .benefits__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .benefits__list {
+    grid-template-columns: 1fr;
+  }
+}
