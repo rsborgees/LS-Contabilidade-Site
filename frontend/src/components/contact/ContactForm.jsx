@@ -1,13 +1,19 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './ContactForm.css'
 
-function emptyForm(defaultSubject) {
-  return { name: '', phone: '', email: '', subject: defaultSubject, plan: '', message: '' }
+function emptyForm(defaultSubject, initialPlan) {
+  return { name: '', phone: '', email: '', subject: defaultSubject, plan: initialPlan || '', message: '' }
 }
 
-export function ContactForm({ defaultSubject = '', planOptions }) {
-  const [form, setForm] = useState(() => emptyForm(defaultSubject))
+export function ContactForm({ defaultSubject = '', planOptions, initialPlan = '' }) {
+  const [form, setForm] = useState(() => emptyForm(defaultSubject, initialPlan))
   const [status, setStatus] = useState('idle')
+
+  useEffect(() => {
+    if (initialPlan) {
+      setForm((current) => ({ ...current, plan: initialPlan }))
+    }
+  }, [initialPlan])
 
   function handleChange(event) {
     const { name, value } = event.target
@@ -38,7 +44,7 @@ export function ContactForm({ defaultSubject = '', planOptions }) {
       }
 
       setStatus('success')
-      setForm(emptyForm(defaultSubject))
+      setForm(emptyForm(defaultSubject, initialPlan))
     } catch {
       setStatus('error')
     }
