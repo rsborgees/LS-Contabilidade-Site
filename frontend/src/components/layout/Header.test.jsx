@@ -47,23 +47,35 @@ describe('Header', () => {
     expect(servicesDropdown()).not.toHaveClass('header__dropdown--open')
   })
 
-  it('opens the Serviços dropdown when its toggle is clicked', async () => {
+  it('opens the Serviços dropdown when it is clicked', async () => {
     const user = userEvent.setup()
     renderHeader()
 
-    await user.click(screen.getByRole('button', { name: /mostrar submenu de serviços/i }))
+    await user.click(screen.getByRole('button', { name: 'Serviços' }))
 
     expect(servicesDropdown()).toHaveClass('header__dropdown--open')
   })
 
-  it('closes the Serviços dropdown when its toggle is clicked again', async () => {
+  it('closes the Serviços dropdown when it is clicked again', async () => {
     const user = userEvent.setup()
     renderHeader()
-    const toggle = screen.getByRole('button', { name: /mostrar submenu de serviços/i })
+    const toggle = screen.getByRole('button', { name: 'Serviços' })
 
     await user.click(toggle)
     await user.click(toggle)
 
     expect(servicesDropdown()).not.toHaveClass('header__dropdown--open')
+  })
+
+  it('includes a link to the main Serviços page inside the dropdown', async () => {
+    const user = userEvent.setup()
+    renderHeader()
+
+    await user.click(screen.getByRole('button', { name: 'Serviços' }))
+
+    expect(screen.getByRole('link', { name: 'Nossos Serviços' })).toHaveAttribute(
+      'href',
+      '/servicos',
+    )
   })
 })

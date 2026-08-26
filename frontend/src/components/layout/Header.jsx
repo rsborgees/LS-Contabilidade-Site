@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useLocation } from 'react-router-dom'
 import logo from '../../assets/logo.png'
 import { NAV_LINKS } from '../../data/nav'
 import { buildWhatsappUrl } from '../../lib/constants'
@@ -9,6 +9,7 @@ export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [openDropdown, setOpenDropdown] = useState(null)
   const navRef = useRef(null)
+  const location = useLocation()
 
   function closeMenu() {
     setIsMenuOpen(false)
@@ -34,9 +35,48 @@ export function Header() {
 
         <nav className={`header__nav ${isMenuOpen ? 'header__nav--open' : ''}`} ref={navRef}>
           <ul className="header__nav-list">
-            {NAV_LINKS.map((link) => (
-              <li key={link.to} className="header__nav-item">
-                <div className="header__nav-link-wrap">
+            {NAV_LINKS.map((link) => {
+              if (link.children) {
+                const isChildActive = link.children.some((child) => child.to === location.pathname)
+                const isOpen = openDropdown === link.label
+
+                return (
+                  <li key={link.label} className="header__nav-item">
+                    <button
+                      type="button"
+                      className={`header__nav-link header__nav-link--button ${
+                        isChildActive ? 'header__nav-link--active' : ''
+                      }`}
+                      aria-expanded={isOpen}
+                      onClick={() => setOpenDropdown((current) => (current === link.label ? null : link.label))}
+                    >
+                      {link.label}
+                      <svg
+                        className={`header__dropdown-chevron ${isOpen ? 'header__dropdown-chevron--open' : ''}`}
+                        viewBox="0 0 12 8"
+                        width="10"
+                        height="7"
+                        aria-hidden="true"
+                      >
+                        <path d="M1 1L6 6L11 1" stroke="currentColor" strokeWidth="2" fill="none" />
+                      </svg>
+                    </button>
+
+                    <ul className={`header__dropdown ${isOpen ? 'header__dropdown--open' : ''}`}>
+                      {link.children.map((child) => (
+                        <li key={child.to}>
+                          <NavLink to={child.to} className="header__dropdown-link" onClick={closeMenu}>
+                            {child.label}
+                          </NavLink>
+                        </li>
+                      ))}
+                    </ul>
+                  </li>
+                )
+              }
+
+              return (
+                <li key={link.to} className="header__nav-item">
                   <NavLink
                     to={link.to}
                     className={({ isActive }) =>
@@ -46,43 +86,9 @@ export function Header() {
                   >
                     {link.label}
                   </NavLink>
-
-                  {link.children && (
-                    <button
-                      type="button"
-                      className={`header__dropdown-toggle ${
-                        openDropdown === link.label ? 'header__dropdown-toggle--open' : ''
-                      }`}
-                      aria-label={`Mostrar submenu de ${link.label}`}
-                      aria-expanded={openDropdown === link.label}
-                      onClick={() =>
-                        setOpenDropdown((current) => (current === link.label ? null : link.label))
-                      }
-                    >
-                      <svg viewBox="0 0 12 8" width="10" height="7" aria-hidden="true">
-                        <path d="M1 1L6 6L11 1" stroke="currentColor" strokeWidth="2" fill="none" />
-                      </svg>
-                    </button>
-                  )}
-                </div>
-
-                {link.children && (
-                  <ul
-                    className={`header__dropdown ${
-                      openDropdown === link.label ? 'header__dropdown--open' : ''
-                    }`}
-                  >
-                    {link.children.map((child) => (
-                      <li key={child.to}>
-                        <NavLink to={child.to} className="header__dropdown-link" onClick={closeMenu}>
-                          {child.label}
-                        </NavLink>
-                      </li>
-                    ))}
-                  </ul>
-                )}
-              </li>
-            ))}
+                </li>
+              )
+            })}
           </ul>
           <a
             className="btn btn--primary header__nav-cta"
