@@ -1,5 +1,5 @@
 export const COMPANY_NAME = 'LS Contabilidade'
-export const SLOGAN = 'A contabilidade que a sua empresa precisa!'
+export const SLOGAN = 'Contabilidade especializada em prestação de serviços, comércio e farmácias'
 
 export const PHONE_DISPLAY = '(71) 98427-6978'
 export const PHONE_TEL = '+5571984276978'

@@ -46,9 +46,7 @@ export function Hero() {
         <div className="hero__copy">
           <h1 className="hero__title">{SLOGAN}</h1>
           <p className="hero__description">
-            Assessoria contábil, fiscal, pessoal e societária para empresas, MEIs e profissionais
-            liberais. Atendimento presencial em Salvador e em toda a Bahia, e digital para todo o
-            Brasil.
+            Estamos em Salvador/BA e atendemos em todo o Brasil. Venha ser nosso cliente!
           </p>
           <div className="hero__actions">
             <WhatsappButton message="Olá! Quero abrir uma empresa com a LS Contabilidade.">

@@ -1,4 +1,4 @@
-import { WhatsappButton } from '../shared/WhatsappButton'
+import { Link } from 'react-router-dom'
 import { SectionHeading } from '../shared/SectionHeading'
 import './OpenOrMigrate.css'
 
@@ -15,12 +15,9 @@ export function OpenOrMigrate() {
               Cuidamos de todo o processo de abertura da sua empresa de forma rápida e fácil,
               para você focar no que realmente importa: o seu negócio.
             </p>
-            <WhatsappButton
-              variant="outline"
-              message="Olá! Quero abrir uma empresa com a LS Contabilidade."
-            >
+            <Link to="/abrir-empresa" className="btn btn--primary">
               Quero abrir minha empresa
-            </WhatsappButton>
+            </Link>
           </div>
 
           <div className="open-migrate__card">
@@ -29,12 +26,9 @@ export function OpenOrMigrate() {
               Já tem contador? Migramos a contabilidade da sua empresa para a LS com economia e
               melhor planejamento financeiro.
             </p>
-            <WhatsappButton
-              variant="outline"
-              message="Olá! Quero migrar a contabilidade da minha empresa para a LS Contabilidade."
-            >
+            <Link to="/trocar-contador" className="btn btn--primary">
               Quero migrar minha contabilidade
-            </WhatsappButton>
+            </Link>
           </div>
         </div>
       </div>

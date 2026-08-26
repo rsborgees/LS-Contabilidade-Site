@@ -1,10 +1,12 @@
 import { useState } from 'react'
 import './ContactForm.css'
 
-const EMPTY_FORM = { name: '', phone: '', email: '', subject: '', message: '' }
+function emptyForm(defaultSubject) {
+  return { name: '', phone: '', email: '', subject: defaultSubject, message: '' }
+}
 
-export function ContactForm() {
-  const [form, setForm] = useState(EMPTY_FORM)
+export function ContactForm({ defaultSubject = '' }) {
+  const [form, setForm] = useState(() => emptyForm(defaultSubject))
   const [status, setStatus] = useState('idle')
 
   function handleChange(event) {
@@ -36,7 +38,7 @@ export function ContactForm() {
       }
 
       setStatus('success')
-      setForm(EMPTY_FORM)
+      setForm(emptyForm(defaultSubject))
     } catch {
       setStatus('error')
     }
