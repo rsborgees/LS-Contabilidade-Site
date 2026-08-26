@@ -24,6 +24,10 @@
   color: var(--color-text-muted);
 }
 
+.open-migrate__card .btn {
+  margin-top: auto;
+}
+
 @media (max-width: 720px) {
   .open-migrate__grid {
     grid-template-columns: 1fr;
