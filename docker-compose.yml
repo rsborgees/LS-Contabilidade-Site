@@ -19,6 +19,9 @@ services:
       JWT_SECRET: ${JWT_SECRET}
       NODE_ENV: production
       PORT: 4000
+      RESEND_API_KEY: ${RESEND_API_KEY}
+      CONTACT_EMAIL_TO: ${CONTACT_EMAIL_TO}
+      CONTACT_EMAIL_FROM: ${CONTACT_EMAIL_FROM}
     volumes:
       - backend_uploads:/app/uploads
 

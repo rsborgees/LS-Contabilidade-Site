@@ -2,7 +2,15 @@ import { useEffect, useState } from 'react'
 import './ContactForm.css'
 
 function emptyForm(defaultSubject, initialPlan) {
-  return { name: '', phone: '', email: '', subject: defaultSubject, plan: initialPlan || '', message: '' }
+  return {
+    name: '',
+    phone: '',
+    email: '',
+    subject: defaultSubject,
+    plan: initialPlan || '',
+    message: '',
+    company: '',
+  }
 }
 
 export function ContactForm({ defaultSubject = '', planOptions, initialPlan = '' }) {
@@ -23,19 +31,12 @@ export function ContactForm({ defaultSubject = '', planOptions, initialPlan = ''
   async function handleSubmit(event) {
     event.preventDefault()
 
-    const formspreeEndpoint = import.meta.env.VITE_FORMSPREE_ENDPOINT
-
-    if (!formspreeEndpoint) {
-      setStatus('missing-config')
-      return
-    }
-
     setStatus('sending')
 
     try {
-      const response = await fetch(formspreeEndpoint, {
+      const response = await fetch('/api/contact', {
         method: 'POST',
-        headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(form),
       })
 
@@ -52,12 +53,16 @@ export function ContactForm({ defaultSubject = '', planOptions, initialPlan = ''
 
   return (
     <form className="contact-form" onSubmit={handleSubmit}>
-      {status === 'missing-config' && (
-        <p className="contact-form__notice contact-form__notice--warning">
-          O formulário ainda não está conectado a um endpoint do Formspree. Configure a variável
-          de ambiente <code>VITE_FORMSPREE_ENDPOINT</code> para ativar o envio.
-        </p>
-      )}
+      <input
+        type="text"
+        name="company"
+        value={form.company}
+        onChange={handleChange}
+        className="contact-form__honeypot"
+        tabIndex={-1}
+        autoComplete="off"
+        aria-hidden="true"
+      />
       {status === 'success' && (
         <p className="contact-form__notice contact-form__notice--success">
           Mensagem enviada com sucesso! Em breve entraremos em contato.

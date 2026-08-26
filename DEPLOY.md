@@ -6,8 +6,10 @@ apontando pro IP do VPS (necessário só pro passo de HTTPS).
 ## Primeira vez
 
 1. Clonar o repositório no servidor e entrar na pasta.
-2. Copiar `.env.example` para `.env` e preencher `POSTGRES_PASSWORD` e
-   `JWT_SECRET` com valores fortes e únicos.
+2. Copiar `.env.example` para `.env` e preencher `POSTGRES_PASSWORD`,
+   `JWT_SECRET`, `RESEND_API_KEY`, `CONTACT_EMAIL_TO` e `CONTACT_EMAIL_FROM`
+   (formulários de contato do site — veja a seção "E-mail dos formulários
+   de contato (Resend)" abaixo antes de preencher `CONTACT_EMAIL_FROM`).
 3. Buildar o frontend (gera `frontend/dist`, que o nginx serve):
    ```bash
    cd frontend && npm ci && npm run build && cd ..
@@ -26,6 +28,27 @@ apontando pro IP do VPS (necessário só pro passo de HTTPS).
    docker compose -f docker-compose.yml up -d nginx
    ```
 7. Confirmar que o site responde: `curl -I http://SEU_DOMINIO_OU_IP/`.
+
+## E-mail dos formulários de contato (Resend)
+
+O backend usa a [Resend](https://resend.com) para enviar o conteúdo dos
+formulários de contato do site por e-mail. Sem um domínio verificado no
+Resend, o envio só funciona para o e-mail dono da conta Resend — falha em
+produção com "You can only send testing emails to your own email address".
+
+Passo a passo pra liberar o envio pra qualquer destinatário (ex.:
+`legalizacao@lscontabilidade.cnt.br`):
+
+1. Acessar [resend.com/domains](https://resend.com/domains) e clicar em
+   "Add Domain", informando `lscontabilidade.cnt.br`.
+2. O Resend mostra registros DNS (geralmente TXT/SPF, CNAME/DKIM e
+   opcionalmente TXT/DMARC). Adicionar cada um no painel de DNS onde o
+   domínio `lscontabilidade.cnt.br` está registrado.
+3. Voltar em resend.com/domains e clicar em "Verify" (propagação de DNS
+   pode levar de minutos a algumas horas).
+4. Depois de verificado, qualquer endereço `@lscontabilidade.cnt.br` pode
+   ser usado em `CONTACT_EMAIL_FROM` (não precisa ser uma caixa de e-mail
+   real — só precisa estar no domínio verificado).
 
 ## HTTPS (manual, depende do domínio já apontar pro servidor)
 

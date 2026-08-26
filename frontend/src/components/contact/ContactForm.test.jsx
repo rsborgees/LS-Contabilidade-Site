@@ -12,12 +12,7 @@ async function fillRequiredFields(user) {
 }
 
 describe('ContactForm', () => {
-  beforeEach(() => {
-    vi.stubEnv('VITE_FORMSPREE_ENDPOINT', 'https://formspree.io/f/test123')
-  })
-
   afterEach(() => {
-    vi.unstubAllEnvs()
     vi.restoreAllMocks()
   })
 
@@ -31,6 +26,10 @@ describe('ContactForm', () => {
 
     expect(await screen.findByText(/mensagem enviada com sucesso/i)).toBeInTheDocument()
     expect(screen.getByLabelText('Nome')).toHaveValue('')
+    expect(fetch).toHaveBeenCalledWith(
+      '/api/contact',
+      expect.objectContaining({ method: 'POST' }),
+    )
   })
 
   it('shows an error message when the request fails', async () => {
@@ -42,20 +41,6 @@ describe('ContactForm', () => {
     await user.click(screen.getByRole('button', { name: /enviar mensagem/i }))
 
     expect(await screen.findByText(/não foi possível enviar sua mensagem/i)).toBeInTheDocument()
-  })
-
-  it('warns instead of submitting when the Formspree endpoint is not configured', async () => {
-    vi.stubEnv('VITE_FORMSPREE_ENDPOINT', '')
-    const fetchMock = vi.fn()
-    vi.stubGlobal('fetch', fetchMock)
-    const user = userEvent.setup()
-    render(<ContactForm />)
-
-    await fillRequiredFields(user)
-    await user.click(screen.getByRole('button', { name: /enviar mensagem/i }))
-
-    expect(await screen.findByText(/ainda não está conectado a um endpoint/i)).toBeInTheDocument()
-    expect(fetchMock).not.toHaveBeenCalled()
   })
 
   it('does not show a plan field when planOptions is not provided', () => {
