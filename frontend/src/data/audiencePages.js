@@ -1,6 +1,10 @@
+import profissionalLiberalImage from '../assets/page-profissional-liberal.jpeg'
+import farmaciaImage from '../assets/page-farmacia.jpeg'
+
 export const AUDIENCE_PAGES = {
   'profissionais-liberais': {
     navLabel: 'Profissionais Liberais',
+    image: profissionalLiberalImage,
     heading: 'Contabilidade para Médicos, Fonoaudiólogos, Fisioterapeutas, Dentistas e Advogados',
     paragraphs: [
       'Oferecemos serviços contábeis com qualidade para você que é profissional liberal:',
@@ -67,8 +71,6 @@ export const AUDIENCE_PAGES = {
     closingLine: 'Para saber como, preencha o formulário ou fale conosco pelo WhatsApp.',
     ctaLabel: 'Contrate esse serviço',
     showWhatsapp: true,
-    // Imagem ainda não recebida do cliente — quando chegar, importar e
-    // atribuir aqui para a página passar a usar o layout com foto ao lado.
-    image: null,
+    image: farmaciaImage,
   },
 }
