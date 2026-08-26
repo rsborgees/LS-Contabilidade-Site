@@ -60,10 +60,13 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
+  margin: 0;
+  padding: 0 0 4px;
   background: transparent;
   border: none;
   border-bottom: 2px solid transparent;
   font-family: inherit;
+  line-height: inherit;
   cursor: pointer;
 }
 
