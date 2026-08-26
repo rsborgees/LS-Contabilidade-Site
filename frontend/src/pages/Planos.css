@@ -18,7 +18,7 @@
 }
 
 .plan-card--featured {
-  border-color: var(--plan-color);
+  border-color: var(--color-brand);
   box-shadow: var(--shadow-lg);
   transform: scale(1.06);
   z-index: 1;
@@ -29,7 +29,7 @@
   top: -14px;
   left: 50%;
   transform: translateX(-50%);
-  background: var(--plan-text-color);
+  background: var(--color-brand-dark);
   color: #ffffff;
   font-size: 0.72rem;
   font-weight: 800;
@@ -47,8 +47,8 @@
   width: 56px;
   height: 56px;
   border-radius: 999px;
-  border: 2px solid var(--plan-color);
-  color: var(--plan-color);
+  border: 2px solid var(--color-brand);
+  color: var(--color-brand);
   margin-bottom: 16px;
 }
 
@@ -90,8 +90,8 @@
   width: 100%;
   padding: 12px 20px;
   border-radius: 999px;
-  border: 2px solid var(--plan-text-color);
-  color: var(--plan-text-color);
+  border: 2px solid var(--color-brand-dark);
+  color: var(--color-brand-dark);
   font-weight: 700;
   font-size: 0.9rem;
   text-decoration: none;
@@ -101,7 +101,7 @@
 }
 
 .plan-card__cta:hover {
-  background: var(--plan-text-color);
+  background: var(--color-brand-dark);
   color: #ffffff;
 }
 

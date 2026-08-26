@@ -30,13 +30,13 @@ const PLAN_ICONS = {
   ),
 }
 
-function FeatureIcon({ included, color }) {
+function FeatureIcon({ included }) {
   if (included) {
     return (
       <svg viewBox="0 0 14 11" width="13" height="10" aria-hidden="true">
         <path
           d="M1 5.5L5 9.5L13 1.5"
-          stroke={color}
+          stroke="var(--color-brand-dark)"
           strokeWidth="2.2"
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -69,7 +69,6 @@ export function Planos() {
             {PLANS.map((plan) => (
               <div
                 className={`plan-card ${plan.featured ? 'plan-card--featured' : ''}`}
-                style={{ '--plan-color': plan.color, '--plan-text-color': plan.textColor }}
                 key={plan.id}
               >
                 {plan.featured && <span className="plan-card__badge">Mais popular</span>}
@@ -98,7 +97,7 @@ export function Planos() {
                         className={included ? 'is-included' : 'is-excluded'}
                         key={feature}
                       >
-                        <FeatureIcon included={included} color={plan.textColor} />
+                        <FeatureIcon included={included} />
                         {feature}
                       </li>
                     )
