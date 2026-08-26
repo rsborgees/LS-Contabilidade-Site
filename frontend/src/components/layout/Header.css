@@ -54,6 +54,8 @@
 
 .header__nav-item {
   position: relative;
+  display: flex;
+  align-items: center;
 }
 
 .header__nav-link--button {
@@ -176,6 +178,11 @@
     flex-direction: column;
     align-items: stretch;
     gap: 14px;
+  }
+
+  .header__nav-item {
+    flex-direction: column;
+    align-items: stretch;
   }
 
   .header__dropdown {
