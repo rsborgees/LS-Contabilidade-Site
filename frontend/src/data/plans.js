@@ -32,6 +32,7 @@ export const PLANS = [
     textColor: '#1d4ed8',
     revenueRange: 'Até R$ 60.000/mês',
     includedCount: 8,
+    featured: true,
   },
   {
     id: 'consultiva',

@@ -68,10 +68,11 @@ export function Planos() {
           <div className="plan-cards">
             {PLANS.map((plan) => (
               <div
-                className="plan-card"
+                className={`plan-card ${plan.featured ? 'plan-card--featured' : ''}`}
                 style={{ '--plan-color': plan.color, '--plan-text-color': plan.textColor }}
                 key={plan.id}
               >
+                {plan.featured && <span className="plan-card__badge">Mais popular</span>}
                 <div className="plan-card__icon">{PLAN_ICONS[plan.id]}</div>
                 <h3 className="plan-card__name">{plan.name}</h3>
                 <p className="plan-card__tagline">{plan.tagline}</p>
