@@ -1,0 +1,9 @@
+services:
+  db:
+    # Porta 5432 já está em uso por outro projeto nesta máquina; 5433 evita o conflito.
+    ports:
+      - '5433:5432'
+
+  backend:
+    ports:
+      - '4000:4000'

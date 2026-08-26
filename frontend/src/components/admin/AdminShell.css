@@ -1,0 +1,60 @@
+.admin-shell {
+  min-height: 100vh;
+  background: #f5f6f7;
+}
+
+.admin-shell__bar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 56px;
+  padding: 0 24px;
+  background: #ffffff;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.admin-shell__brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: var(--color-text);
+}
+
+.admin-shell__logo {
+  height: 26px;
+  width: auto;
+}
+
+.admin-shell__label {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--color-text-muted);
+  border-left: 1px solid var(--color-border);
+  padding-left: 10px;
+}
+
+.admin-shell__logout {
+  background: none;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: 7px 14px;
+  font-family: inherit;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  transition: border-color 150ms ease, color 150ms ease;
+}
+
+.admin-shell__logout:hover {
+  border-color: #a11414;
+  color: #a11414;
+}
+
+.admin-shell__content {
+  padding: 40px 24px 64px;
+}

@@ -7,11 +7,18 @@
 }
 
 .header__bar {
-  display: flex;
+  display: grid;
+  grid-template-columns: auto 1fr auto auto;
   align-items: center;
-  justify-content: space-between;
   height: 76px;
   gap: 16px;
+  padding: 0 32px;
+}
+
+@media (max-width: 640px) {
+  .header__bar {
+    padding: 0 20px;
+  }
 }
 
 .header__brand {
@@ -28,7 +35,7 @@
 .header__nav {
   display: flex;
   align-items: center;
-  gap: 28px;
+  justify-content: center;
 }
 
 .header__nav-list {

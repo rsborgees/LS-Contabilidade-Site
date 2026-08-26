@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import logo from '../../assets/logo.png'
+import logo from '../../assets/logo2.png'
 import { NAV_LINKS } from '../../data/nav'
 import { ADDRESS_LINES, COMPANY_NAME, EMAIL, PHONE_DISPLAY, buildWhatsappUrl } from '../../lib/constants'
 import './Footer.css'

@@ -9,6 +9,13 @@ import { TrocarContador } from './pages/TrocarContador'
 import { AudienceLeadPage } from './pages/AudienceLeadPage'
 import { Planos } from './pages/Planos'
 import { LinksUteis } from './pages/LinksUteis'
+import { Blog } from './pages/Blog'
+import { BlogPost } from './pages/BlogPost'
+import { AdminLogin } from './pages/admin/AdminLogin'
+import { AdminDashboard } from './pages/admin/AdminDashboard'
+import { AdminPostEditor } from './pages/admin/AdminPostEditor'
+import { AdminRoute } from './components/admin/AdminRoute'
+import { AdminShell } from './components/admin/AdminShell'
 
 function App() {
   return (
@@ -33,6 +40,17 @@ function App() {
           <Route path="farmacias" element={<AudienceLeadPage slug="farmacias" />} />
           <Route path="planos" element={<Planos />} />
           <Route path="links-uteis" element={<LinksUteis />} />
+          <Route path="blog" element={<Blog />} />
+          <Route path="blog/:slug" element={<BlogPost />} />
+        </Route>
+
+        <Route path="admin/login" element={<AdminLogin />} />
+        <Route path="admin" element={<AdminRoute />}>
+          <Route element={<AdminShell />}>
+            <Route index element={<AdminDashboard />} />
+            <Route path="posts/novo" element={<AdminPostEditor />} />
+            <Route path="posts/:id/editar" element={<AdminPostEditor />} />
+          </Route>
         </Route>
       </Routes>
     </BrowserRouter>

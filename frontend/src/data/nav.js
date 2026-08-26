@@ -13,5 +13,6 @@ export const NAV_LINKS = [
   },
   { label: 'Planos', to: '/planos' },
   { label: 'Links Úteis', to: '/links-uteis' },
+  { label: 'Blog', to: '/blog' },
   { label: 'Fale Conosco', to: '/contato' },
 ]

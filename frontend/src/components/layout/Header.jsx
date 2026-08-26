@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { NavLink, useLocation } from 'react-router-dom'
-import logo from '../../assets/logo.png'
+import logo from '../../assets/logo2.png'
 import { NAV_LINKS } from '../../data/nav'
 import { buildWhatsappUrl } from '../../lib/constants'
 import './Header.css'
@@ -28,7 +28,7 @@ export function Header() {
 
   return (
     <header className="header">
-      <div className="container header__bar">
+      <div className="header__bar">
         <NavLink to="/" className="header__brand" onClick={closeMenu}>
           <img src={logo} alt="LS Contabilidade" className="header__logo" />
         </NavLink>
@@ -90,16 +90,17 @@ export function Header() {
               )
             })}
           </ul>
-          <a
-            className="btn btn--primary header__nav-cta"
-            href={buildWhatsappUrl()}
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={closeMenu}
-          >
-            Fale no WhatsApp
-          </a>
         </nav>
+
+        <a
+          className="btn btn--primary header__nav-cta"
+          href={buildWhatsappUrl()}
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={closeMenu}
+        >
+          Fale no WhatsApp
+        </a>
 
         <button
           type="button"
