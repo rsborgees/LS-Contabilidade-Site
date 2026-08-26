@@ -22,7 +22,18 @@ export function AudienceLeadPage({ slug }) {
         <ul className="lead-hero__checklist">
           {page.checklist.map((item) => (
             <li key={item}>
-              <span aria-hidden="true">✅</span>
+              <span className="lead-hero__check-icon" aria-hidden="true">
+                <svg viewBox="0 0 14 11" width="12" height="9">
+                  <path
+                    d="M1 5.5L5 9.5L13 1.5"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    fill="none"
+                  />
+                </svg>
+              </span>
               {item}
             </li>
           ))}
