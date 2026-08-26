@@ -57,4 +57,21 @@ describe('ContactForm', () => {
     expect(await screen.findByText(/ainda não está conectado a um endpoint/i)).toBeInTheDocument()
     expect(fetchMock).not.toHaveBeenCalled()
   })
+
+  it('does not show a plan field when planOptions is not provided', () => {
+    render(<ContactForm />)
+    expect(screen.queryByLabelText('Plano desejado')).not.toBeInTheDocument()
+  })
+
+  it('lets the user pick a plan when planOptions is provided', async () => {
+    vi.stubGlobal('fetch', vi.fn().mockResolvedValue({ ok: true }))
+    const user = userEvent.setup()
+    render(<ContactForm planOptions={['Contabilidade Light', 'Contabilidade Essencial']} />)
+
+    await fillRequiredFields(user)
+    await user.selectOptions(screen.getByLabelText('Plano desejado'), 'Contabilidade Essencial')
+    await user.click(screen.getByRole('button', { name: /enviar mensagem/i }))
+
+    expect(await screen.findByText(/mensagem enviada com sucesso/i)).toBeInTheDocument()
+  })
 })

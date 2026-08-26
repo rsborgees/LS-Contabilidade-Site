@@ -2,10 +2,10 @@ import { useState } from 'react'
 import './ContactForm.css'
 
 function emptyForm(defaultSubject) {
-  return { name: '', phone: '', email: '', subject: defaultSubject, message: '' }
+  return { name: '', phone: '', email: '', subject: defaultSubject, plan: '', message: '' }
 }
 
-export function ContactForm({ defaultSubject = '' }) {
+export function ContactForm({ defaultSubject = '', planOptions }) {
   const [form, setForm] = useState(() => emptyForm(defaultSubject))
   const [status, setStatus] = useState('idle')
 
@@ -84,6 +84,22 @@ export function ContactForm({ defaultSubject = '' }) {
           <input type="text" name="subject" required value={form.subject} onChange={handleChange} />
         </label>
       </div>
+
+      {planOptions && (
+        <label className="contact-form__field">
+          <span>Plano desejado</span>
+          <select name="plan" required value={form.plan} onChange={handleChange}>
+            <option value="" disabled>
+              Selecione um plano
+            </option>
+            {planOptions.map((plan) => (
+              <option value={plan} key={plan}>
+                {plan}
+              </option>
+            ))}
+          </select>
+        </label>
+      )}
 
       <label className="contact-form__field">
         <span>Mensagem</span>

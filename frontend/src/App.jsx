@@ -7,6 +7,7 @@ import { Contato } from './pages/Contato'
 import { AbrirEmpresa } from './pages/AbrirEmpresa'
 import { TrocarContador } from './pages/TrocarContador'
 import { AudienceLeadPage } from './pages/AudienceLeadPage'
+import { Planos } from './pages/Planos'
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
           />
           <Route path="comercio" element={<AudienceLeadPage slug="comercio" />} />
           <Route path="farmacias" element={<AudienceLeadPage slug="farmacias" />} />
+          <Route path="planos" element={<Planos />} />
         </Route>
       </Routes>
     </BrowserRouter>
