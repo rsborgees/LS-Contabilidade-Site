@@ -31,6 +31,25 @@
   margin-bottom: var(--space-md);
 }
 
+.lead-hero__text--closing {
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.lead-hero__checklist {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px 24px;
+  margin-bottom: var(--space-md);
+}
+
+.lead-hero__checklist li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-weight: 600;
+}
+
 .lead-hero__cta {
   display: inline-flex;
 }
@@ -61,5 +80,9 @@
 
   .lead-hero__image {
     order: -1;
+  }
+
+  .lead-hero__checklist {
+    grid-template-columns: 1fr;
   }
 }

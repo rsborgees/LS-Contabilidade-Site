@@ -6,6 +6,7 @@ import { Servicos } from './pages/Servicos'
 import { Contato } from './pages/Contato'
 import { AbrirEmpresa } from './pages/AbrirEmpresa'
 import { TrocarContador } from './pages/TrocarContador'
+import { AudienceLeadPage } from './pages/AudienceLeadPage'
 
 function App() {
   return (
@@ -18,6 +19,10 @@ function App() {
           <Route path="contato" element={<Contato />} />
           <Route path="abrir-empresa" element={<AbrirEmpresa />} />
           <Route path="trocar-contador" element={<TrocarContador />} />
+          <Route
+            path="profissionais-liberais"
+            element={<AudienceLeadPage slug="profissionais-liberais" />}
+          />
         </Route>
       </Routes>
     </BrowserRouter>

@@ -37,4 +37,33 @@ describe('Header', () => {
 
     expect(screen.getByRole('navigation')).not.toHaveClass('header__nav--open')
   })
+
+  function servicesDropdown() {
+    return screen.getByRole('link', { name: 'Profissionais Liberais' }).closest('.header__dropdown')
+  }
+
+  it('keeps the Serviços dropdown closed by default', () => {
+    renderHeader()
+    expect(servicesDropdown()).not.toHaveClass('header__dropdown--open')
+  })
+
+  it('opens the Serviços dropdown when its toggle is clicked', async () => {
+    const user = userEvent.setup()
+    renderHeader()
+
+    await user.click(screen.getByRole('button', { name: /mostrar submenu de serviços/i }))
+
+    expect(servicesDropdown()).toHaveClass('header__dropdown--open')
+  })
+
+  it('closes the Serviços dropdown when its toggle is clicked again', async () => {
+    const user = userEvent.setup()
+    renderHeader()
+    const toggle = screen.getByRole('button', { name: /mostrar submenu de serviços/i })
+
+    await user.click(toggle)
+    await user.click(toggle)
+
+    expect(servicesDropdown()).not.toHaveClass('header__dropdown--open')
+  })
 })
