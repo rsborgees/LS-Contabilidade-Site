@@ -1,0 +1,108 @@
+.links-uteis__search {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  max-width: 480px;
+  margin: 0 auto var(--space-lg);
+  padding: 12px 16px;
+  background: #ffffff;
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  color: var(--color-text-muted);
+}
+
+.links-uteis__search input {
+  flex: 1;
+  border: none;
+  outline: none;
+  font-family: inherit;
+  font-size: 0.95rem;
+  color: var(--color-text);
+  background: transparent;
+}
+
+.links-uteis__search input::placeholder {
+  color: #9aa1a9;
+}
+
+.links-uteis__results-count {
+  text-align: center;
+  color: var(--color-text-muted);
+  font-size: 0.85rem;
+  margin-bottom: var(--space-md);
+}
+
+.links-uteis__empty {
+  text-align: center;
+  color: var(--color-text-muted);
+  padding: var(--space-lg) 0;
+}
+
+.links-uteis__columns {
+  columns: 3;
+  column-gap: 20px;
+}
+
+.links-uteis__category {
+  break-inside: avoid;
+  margin-bottom: 20px;
+  background: #ffffff;
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+  padding: 22px;
+}
+
+.links-uteis__category-title {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: var(--color-brand-dark);
+  margin-bottom: 12px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.links-uteis__list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.links-uteis__list a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 8px 6px;
+  border-radius: 8px;
+  text-decoration: none;
+  color: var(--color-text);
+  font-size: 0.85rem;
+  font-weight: 500;
+  line-height: 1.3;
+}
+
+.links-uteis__list a:hover {
+  background: var(--color-brand-light);
+  color: var(--color-brand-dark);
+}
+
+.links-uteis__list a svg {
+  flex-shrink: 0;
+  color: #9aa1a9;
+}
+
+.links-uteis__list a:hover svg {
+  color: var(--color-brand-dark);
+}
+
+@media (max-width: 980px) {
+  .links-uteis__columns {
+    columns: 2;
+  }
+}
+
+@media (max-width: 620px) {
+  .links-uteis__columns {
+    columns: 1;
+  }
+}
