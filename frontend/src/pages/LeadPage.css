@@ -50,6 +50,12 @@
   font-weight: 600;
 }
 
+.lead-hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
 .lead-hero__cta {
   display: inline-flex;
 }

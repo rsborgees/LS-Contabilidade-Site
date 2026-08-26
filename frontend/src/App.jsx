@@ -23,6 +23,12 @@ function App() {
             path="profissionais-liberais"
             element={<AudienceLeadPage slug="profissionais-liberais" />}
           />
+          <Route
+            path="prestador-de-servicos"
+            element={<AudienceLeadPage slug="prestador-de-servicos" />}
+          />
+          <Route path="comercio" element={<AudienceLeadPage slug="comercio" />} />
+          <Route path="farmacias" element={<AudienceLeadPage slug="farmacias" />} />
         </Route>
       </Routes>
     </BrowserRouter>

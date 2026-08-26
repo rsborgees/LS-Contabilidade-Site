@@ -1,5 +1,6 @@
 import { usePageTitle } from '../hooks/usePageTitle'
 import { ContactForm } from '../components/contact/ContactForm'
+import { WhatsappButton } from '../components/shared/WhatsappButton'
 import { AUDIENCE_PAGES } from '../data/audiencePages'
 import './LeadPage.css'
 
@@ -7,27 +8,58 @@ export function AudienceLeadPage({ slug }) {
   const page = AUDIENCE_PAGES[slug]
   usePageTitle(page.navLabel)
 
+  const content = (
+    <>
+      <h1 className="lead-hero__title">{page.heading}</h1>
+
+      {page.paragraphs?.map((paragraph) => (
+        <p className="lead-hero__text" key={paragraph}>
+          {paragraph}
+        </p>
+      ))}
+
+      {page.checklist && (
+        <ul className="lead-hero__checklist">
+          {page.checklist.map((item) => (
+            <li key={item}>
+              <span aria-hidden="true">✅</span>
+              {item}
+            </li>
+          ))}
+        </ul>
+      )}
+
+      {page.closingLine && (
+        <p className="lead-hero__text lead-hero__text--closing">{page.closingLine}</p>
+      )}
+
+      <div className="lead-hero__actions">
+        <a href="#lead-form" className="btn btn--primary lead-hero__cta">
+          {page.ctaLabel}
+        </a>
+        {page.showWhatsapp && (
+          <WhatsappButton
+            variant="outline-on-dark"
+            message={`Olá! Quero saber mais sobre a contabilidade para ${page.navLabel.toLowerCase()}.`}
+          >
+            Falar no WhatsApp
+          </WhatsappButton>
+        )}
+      </div>
+    </>
+  )
+
   return (
     <>
       <section className="lead-hero">
-        <div className="container lead-hero__inner">
-          <h1 className="lead-hero__title">{page.heading}</h1>
-          <p className="lead-hero__text">{page.intro}</p>
+        <div
+          className={`container lead-hero__inner ${page.image ? 'lead-hero__inner--split' : ''}`}
+        >
+          <div>{content}</div>
 
-          <ul className="lead-hero__checklist">
-            {page.checklist.map((item) => (
-              <li key={item}>
-                <span aria-hidden="true">✅</span>
-                {item}
-              </li>
-            ))}
-          </ul>
-
-          <p className="lead-hero__text lead-hero__text--closing">{page.closingLine}</p>
-
-          <a href="#lead-form" className="btn btn--primary lead-hero__cta">
-            {page.ctaLabel}
-          </a>
+          {page.image && (
+            <img src={page.image} alt={page.navLabel} className="lead-hero__image" />
+          )}
         </div>
       </section>
 
