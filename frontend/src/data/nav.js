@@ -13,6 +13,14 @@ export const NAV_LINKS = [
   },
   { label: 'Planos', to: '/planos' },
   { label: 'Links Úteis', to: '/links-uteis' },
-  { label: 'Blog', to: '/blog' },
+  { label: 'Ferramentas Contábeis', to: '/ferramentas-contabeis' },
+  { label: 'Canais de comunicação', 
+    children: [
+      { label: 'Blog', to: '/blog'},
+      { label: 'Últimas notícias', to:'/noticias' }
+    ],
+   },
+
+
   { label: 'Fale Conosco', to: '/contato' },
 ]

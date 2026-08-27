@@ -1,4 +1,4 @@
-.links-uteis__search {
+.link-directory__search {
   display: flex;
   align-items: center;
   gap: 10px;
@@ -11,7 +11,7 @@
   color: var(--color-text-muted);
 }
 
-.links-uteis__search input {
+.link-directory__search input {
   flex: 1;
   border: none;
   outline: none;
@@ -21,29 +21,29 @@
   background: transparent;
 }
 
-.links-uteis__search input::placeholder {
+.link-directory__search input::placeholder {
   color: #9aa1a9;
 }
 
-.links-uteis__results-count {
+.link-directory__results-count {
   text-align: center;
   color: var(--color-text-muted);
   font-size: 0.85rem;
   margin-bottom: var(--space-md);
 }
 
-.links-uteis__empty {
+.link-directory__empty {
   text-align: center;
   color: var(--color-text-muted);
   padding: var(--space-lg) 0;
 }
 
-.links-uteis__columns {
+.link-directory__columns {
   columns: 3;
   column-gap: 20px;
 }
 
-.links-uteis__category {
+.link-directory__category {
   break-inside: avoid;
   margin-bottom: 20px;
   background: #ffffff;
@@ -52,7 +52,7 @@
   padding: 22px;
 }
 
-.links-uteis__category-title {
+.link-directory__category-title {
   font-size: 0.95rem;
   font-weight: 800;
   color: var(--color-brand-dark);
@@ -61,13 +61,13 @@
   border-bottom: 1px solid var(--color-border);
 }
 
-.links-uteis__list {
+.link-directory__list {
   display: flex;
   flex-direction: column;
   gap: 2px;
 }
 
-.links-uteis__list a {
+.link-directory__list a {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -81,28 +81,28 @@
   line-height: 1.3;
 }
 
-.links-uteis__list a:hover {
+.link-directory__list a:hover {
   background: var(--color-brand-light);
   color: var(--color-brand-dark);
 }
 
-.links-uteis__list a svg {
+.link-directory__list a svg {
   flex-shrink: 0;
   color: #9aa1a9;
 }
 
-.links-uteis__list a:hover svg {
+.link-directory__list a:hover svg {
   color: var(--color-brand-dark);
 }
 
 @media (max-width: 980px) {
-  .links-uteis__columns {
+  .link-directory__columns {
     columns: 2;
   }
 }
 
 @media (max-width: 620px) {
-  .links-uteis__columns {
+  .link-directory__columns {
     columns: 1;
   }
 }

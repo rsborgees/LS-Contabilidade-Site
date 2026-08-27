@@ -21,7 +21,7 @@ export function Footer() {
         <div className="footer__column">
           <h3 className="footer__heading">Navegação</h3>
           <ul>
-            {NAV_LINKS.map((link) => (
+            {NAV_LINKS.flatMap((link) => link.children ?? [link]).map((link) => (
               <li key={link.to}>
                 <Link to={link.to} className="footer__link">
                   {link.label}

@@ -4,6 +4,7 @@ import cors from 'cors'
 import { authRouter } from './routes/auth.js'
 import { postsRouter } from './routes/posts.js'
 import { contactRouter } from './routes/contact.js'
+import { newsRouter } from './routes/news.js'
 
 export function createApp() {
   const app = express()
@@ -23,6 +24,7 @@ export function createApp() {
   app.use('/api/auth', authRouter)
   app.use('/api/posts', postsRouter)
   app.use('/api/contact', contactRouter)
+  app.use('/api/news', newsRouter)
   app.use('/uploads', express.static('uploads'))
 
   app.get('/api/health', (req, res) => {

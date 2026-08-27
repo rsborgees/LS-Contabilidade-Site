@@ -9,6 +9,11 @@ import { TrocarContador } from './pages/TrocarContador'
 import { AudienceLeadPage } from './pages/AudienceLeadPage'
 import { Planos } from './pages/Planos'
 import { LinksUteis } from './pages/LinksUteis'
+import { FerramentasContabeis } from './pages/FerramentasContabeis'
+import { UtilitariosContabeis } from './pages/UtilitariosContabeis'
+import { Downloads } from './pages/Downloads'
+import { Diversos } from './pages/Diversos'
+import { Noticias } from './pages/Noticias'
 import { Blog } from './pages/Blog'
 import { BlogPost } from './pages/BlogPost'
 import { AdminLogin } from './pages/admin/AdminLogin'
@@ -40,8 +45,13 @@ function App() {
           <Route path="farmacias" element={<AudienceLeadPage slug="farmacias" />} />
           <Route path="planos" element={<Planos />} />
           <Route path="links-uteis" element={<LinksUteis />} />
+          <Route path="ferramentas-contabeis" element={<FerramentasContabeis />} />
+          <Route path="utilitarios-contabeis" element={<UtilitariosContabeis />} />
+          <Route path="downloads" element={<Downloads />} />
+          <Route path="diversos" element={<Diversos />} />
           <Route path="blog" element={<Blog />} />
           <Route path="blog/:slug" element={<BlogPost />} />
+          <Route path="noticias" element={<Noticias />} />
         </Route>
 
         <Route path="admin/login" element={<AdminLogin />} />
