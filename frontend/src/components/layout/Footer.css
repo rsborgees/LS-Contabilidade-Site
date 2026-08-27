@@ -69,6 +69,10 @@
   font-size: 0.8rem;
 }
 
+.footer__bottom-inner .footer__link {
+  font-size: 0.8rem;
+}
+
 @media (max-width: 860px) {
   .footer__grid {
     grid-template-columns: 1fr 1fr;

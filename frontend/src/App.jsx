@@ -14,6 +14,7 @@ import { UtilitariosContabeis } from './pages/UtilitariosContabeis'
 import { Downloads } from './pages/Downloads'
 import { Diversos } from './pages/Diversos'
 import { Noticias } from './pages/Noticias'
+import { PoliticaPrivacidade } from './pages/PoliticaPrivacidade'
 import { Blog } from './pages/Blog'
 import { BlogPost } from './pages/BlogPost'
 import { AdminLogin } from './pages/admin/AdminLogin'
@@ -52,6 +53,7 @@ function App() {
           <Route path="blog" element={<Blog />} />
           <Route path="blog/:slug" element={<BlogPost />} />
           <Route path="noticias" element={<Noticias />} />
+          <Route path="politica-de-privacidade" element={<PoliticaPrivacidade />} />
         </Route>
 
         <Route path="admin/login" element={<AdminLogin />} />

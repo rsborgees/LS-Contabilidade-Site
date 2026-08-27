@@ -63,6 +63,9 @@ export function Footer() {
             © {year} {COMPANY_NAME}. Todos os direitos reservados.
           </span>
           <span>Atendimento presencial em Salvador e na Bahia · Atendimento digital em todo o Brasil.</span>
+          <Link to="/politica-de-privacidade" className="footer__link">
+            Política de Privacidade
+          </Link>
         </div>
       </div>
     </footer>
