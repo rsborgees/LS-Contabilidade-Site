@@ -20,12 +20,16 @@ import { BlogPost } from './pages/BlogPost'
 import { AdminLogin } from './pages/admin/AdminLogin'
 import { AdminDashboard } from './pages/admin/AdminDashboard'
 import { AdminPostEditor } from './pages/admin/AdminPostEditor'
+import { AdminClientsDashboard } from './pages/admin/AdminClientsDashboard'
+import { AdminClientEditor } from './pages/admin/AdminClientEditor'
 import { AdminRoute } from './components/admin/AdminRoute'
 import { AdminShell } from './components/admin/AdminShell'
+import { ScrollToTop } from './components/shared/ScrollToTop'
 
 function App() {
   return (
     <BrowserRouter basename={import.meta.env.BASE_URL}>
+      <ScrollToTop />
       <Routes>
         <Route element={<Layout />}>
           <Route index element={<Home />} />
@@ -62,6 +66,9 @@ function App() {
             <Route index element={<AdminDashboard />} />
             <Route path="posts/novo" element={<AdminPostEditor />} />
             <Route path="posts/:id/editar" element={<AdminPostEditor />} />
+            <Route path="clientes" element={<AdminClientsDashboard />} />
+            <Route path="clientes/novo" element={<AdminClientEditor />} />
+            <Route path="clientes/:id/editar" element={<AdminClientEditor />} />
           </Route>
         </Route>
       </Routes>

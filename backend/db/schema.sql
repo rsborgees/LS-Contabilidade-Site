@@ -14,3 +14,11 @@ CREATE TABLE IF NOT EXISTS posts (
   created_at        TIMESTAMPTZ NOT NULL DEFAULT now(),
   updated_at        TIMESTAMPTZ NOT NULL DEFAULT now()
 );
+
+CREATE TABLE IF NOT EXISTS clients (
+  id                SERIAL PRIMARY KEY,
+  name              TEXT NOT NULL,
+  logo_image_path   TEXT NOT NULL,
+  website_url       TEXT,
+  created_at        TIMESTAMPTZ NOT NULL DEFAULT now()
+);

@@ -1,6 +1,7 @@
 import { usePageTitle } from '../hooks/usePageTitle'
 import { Hero } from '../components/home/Hero'
 import { OpenOrMigrate } from '../components/home/OpenOrMigrate'
+import { PlansSummary } from '../components/home/PlansSummary'
 import { MeiCallout } from '../components/home/MeiCallout'
 import { ServicesSummary } from '../components/home/ServicesSummary'
 import { Benefits } from '../components/home/Benefits'
@@ -16,6 +17,7 @@ export function Home() {
     <>
       <Hero />
       <OpenOrMigrate />
+      <PlansSummary />
       <MeiCallout />
       <ServicesSummary />
       <Benefits />

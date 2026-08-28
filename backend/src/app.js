@@ -5,6 +5,7 @@ import { authRouter } from './routes/auth.js'
 import { postsRouter } from './routes/posts.js'
 import { contactRouter } from './routes/contact.js'
 import { newsRouter } from './routes/news.js'
+import { clientsRouter } from './routes/clients.js'
 
 export function createApp() {
   const app = express()
@@ -25,6 +26,7 @@ export function createApp() {
   app.use('/api/posts', postsRouter)
   app.use('/api/contact', contactRouter)
   app.use('/api/news', newsRouter)
+  app.use('/api/clients', clientsRouter)
   app.use('/uploads', express.static('uploads'))
 
   app.get('/api/health', (req, res) => {

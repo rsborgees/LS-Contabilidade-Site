@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from 'react'
 import { NavLink, useLocation } from 'react-router-dom'
 import logo from '../../assets/logo2.png'
 import { NAV_LINKS } from '../../data/nav'
-import { buildWhatsappUrl } from '../../lib/constants'
 import './Header.css'
 
 export function Header() {
@@ -91,16 +90,6 @@ export function Header() {
             })}
           </ul>
         </nav>
-
-        <a
-          className="btn btn--primary header__nav-cta"
-          href={buildWhatsappUrl()}
-          target="_blank"
-          rel="noopener noreferrer"
-          onClick={closeMenu}
-        >
-          Fale no WhatsApp
-        </a>
 
         <button
           type="button"

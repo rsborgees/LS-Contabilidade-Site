@@ -8,7 +8,7 @@
 
 .header__bar {
   display: grid;
-  grid-template-columns: auto 1fr auto auto;
+  grid-template-columns: auto 1fr auto;
   align-items: center;
   height: 76px;
   gap: 16px;
@@ -133,12 +133,6 @@
   }
 }
 
-.header__nav-cta {
-  padding: 10px 20px;
-  font-size: 0.9rem;
-  white-space: nowrap;
-}
-
 .header__toggle {
   display: none;
   flex-direction: column;
@@ -196,9 +190,5 @@
     margin: 8px 0 0 12px;
     box-shadow: none;
     border-color: var(--color-border);
-  }
-
-  .header__nav-cta {
-    text-align: center;
   }
 }

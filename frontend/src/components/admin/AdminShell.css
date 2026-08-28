@@ -55,6 +55,34 @@
   color: #a11414;
 }
 
+.admin-shell__tabs {
+  display: flex;
+  gap: 8px;
+  padding: 14px 24px 0;
+  background: #ffffff;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.admin-shell__tab {
+  padding: 10px 18px;
+  border-radius: 10px 10px 0 0;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--color-text-muted);
+  text-decoration: none;
+  border-bottom: 2px solid transparent;
+}
+
+.admin-shell__tab:hover {
+  color: var(--color-text);
+}
+
+.admin-shell__tab--active {
+  color: var(--color-brand-dark);
+  border-bottom-color: var(--color-brand);
+  background: var(--color-brand-light);
+}
+
 .admin-shell__content {
   padding: 40px 24px 64px;
 }

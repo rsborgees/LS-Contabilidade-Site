@@ -1,15 +1,22 @@
 import { useEffect, useRef, useState } from 'react'
 import { SectionHeading } from '../shared/SectionHeading'
-import { CLIENTS } from '../../data/clients'
 import { TESTIMONIALS } from '../../data/testimonials'
 import './Trust.css'
-
-const LOGO_LOOP = [...CLIENTS, ...CLIENTS]
 
 export function Trust() {
   const trackRef = useRef(null)
   const cardRefs = useRef([])
   const [activeIndex, setActiveIndex] = useState(0)
+  const [clients, setClients] = useState([])
+
+  useEffect(() => {
+    fetch('/api/clients')
+      .then((response) => (response.ok ? response.json() : []))
+      .then(setClients)
+      .catch(() => setClients([]))
+  }, [])
+
+  const logoLoop = [...clients, ...clients]
 
   useEffect(() => {
     const track = trackRef.current
@@ -55,15 +62,30 @@ export function Trust() {
           description="Prova real de quem já resolveu a contabilidade com a gente — dos nossos clientes aos depoimentos de quem usa o serviço no dia a dia."
         />
 
-        <div className="trust__logos-marquee">
-          <div className="trust__logos-track">
-            {LOGO_LOOP.map((client, index) => (
-              <div className="trust__logo" key={`${client.name}-${index}`} title={client.name}>
-                <img src={client.logo} alt={client.name} loading="lazy" />
-              </div>
-            ))}
+        {clients.length > 0 && (
+          <div className="trust__logos-marquee">
+            <div className="trust__logos-track">
+              {logoLoop.map((client, index) =>
+                client.websiteUrl ? (
+                  <a
+                    className="trust__logo"
+                    key={`${client.id}-${index}`}
+                    title={client.name}
+                    href={client.websiteUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <img src={client.logoUrl} alt={client.name} loading="lazy" />
+                  </a>
+                ) : (
+                  <div className="trust__logo" key={`${client.id}-${index}`} title={client.name}>
+                    <img src={client.logoUrl} alt={client.name} loading="lazy" />
+                  </div>
+                ),
+              )}
+            </div>
           </div>
-        </div>
+        )}
 
         <div className="trust__testimonials-carousel">
           <div className="trust__testimonials-track" ref={trackRef}>

@@ -174,7 +174,17 @@
   border-radius: 10px;
 }
 
+.admin-dashboard__item-logo {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+  border-radius: 6px;
+  flex-shrink: 0;
+  background: #f5f6f7;
+}
+
 .admin-dashboard__item-title {
+  flex: 1;
   font-weight: 600;
   color: var(--color-text);
   overflow: hidden;
