@@ -1,102 +1,129 @@
 import request from 'supertest'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
+import { createApp } from '../app.js'
+import { resetNewsCache } from './news.js'
 
-const parseURLMock = vi.fn()
-
-vi.mock('rss-parser', () => ({
-  default: vi.fn().mockImplementation(() => ({
-    parseURL: parseURLMock,
-  })),
-}))
-
-const { createApp } = await import('../app.js')
-const { resetNewsCache } = await import('./news.js')
 const app = createApp()
 
-function feedWith(items) {
-  return { title: 'Feed', items }
+// Matches src/routes/news.js LEGISWEB_CATEGORIES order.
+const CATEGORY_LABELS = [
+  'IR / Contribuições',
+  'ICMS, IPI, ISS e Outros',
+  'Trabalho / Previdência',
+  'Contabilidade / Societário',
+  'Simples Nacional',
+  'Comércio Exterior',
+]
+
+function legisWebPageWith(rows) {
+  const rowsHtml = rows
+    .map(
+      ({ title, href, dateText }) => `
+        <tr><td>
+          <h4 class="result-titulo"><a href="${href}">${title}</a></h4>
+          <p class="result-datado"><a href="${href}" class="not_data">${dateText}</a></p>
+        </td></tr>
+      `,
+    )
+    .join('')
+  return `<html><body><table><tbody>${rowsHtml}</tbody></table></body></html>`
+}
+
+function pageForCategory(label, count = 1, startDay = 20) {
+  const rows = Array.from({ length: count }, (_, index) => ({
+    title: `${label} notícia ${index}`,
+    href: `../noticia/?id=${label}-${index}`,
+    dateText: `${startDay} ago 2026 - ${label}`,
+  }))
+  return legisWebPageWith(rows)
+}
+
+function mockFetchSequence(pages) {
+  const fetchMock = vi.fn()
+  pages.forEach((page) => {
+    fetchMock.mockImplementationOnce(async () => ({ ok: true, text: async () => page }))
+  })
+  return fetchMock
+}
+
+function mockAllCategoriesWithOneItemEach() {
+  return mockFetchSequence(CATEGORY_LABELS.map((label) => pageForCategory(label, 1)))
 }
 
 beforeEach(() => {
-  parseURLMock.mockReset()
+  vi.unstubAllGlobals()
   resetNewsCache()
 })
 
 describe('GET /api/news', () => {
-  it('merges items from all feeds sorted by most recent first', async () => {
-    parseURLMock
-      .mockResolvedValueOnce(
-        feedWith([{ title: 'Notícia A', link: 'https://a', pubDate: '2026-08-20T10:00:00Z' }]),
-      )
-      .mockResolvedValueOnce(
-        feedWith([{ title: 'Notícia B', link: 'https://b', pubDate: '2026-08-25T10:00:00Z' }]),
-      )
-      .mockResolvedValueOnce(
-        feedWith([{ title: 'Notícia C', link: 'https://c', pubDate: '2026-08-22T10:00:00Z' }]),
-      )
+  it('returns items covering every LegisWeb category', async () => {
+    vi.stubGlobal('fetch', mockAllCategoriesWithOneItemEach())
 
     const response = await request(app).get('/api/news')
 
     expect(response.status).toBe(200)
-    expect(response.body.map((item) => item.title)).toEqual(['Notícia B', 'Notícia C', 'Notícia A'])
-    expect(response.body[0]).toMatchObject({ title: 'Notícia B', link: 'https://b' })
-    expect(response.body[0].source).toBeTruthy()
+    const categories = new Set(response.body.map((item) => item.category))
+    expect(categories).toEqual(new Set(CATEGORY_LABELS))
   })
 
-  it('skips a feed that fails and still returns items from the others', async () => {
-    parseURLMock
-      .mockRejectedValueOnce(new Error('boom'))
-      .mockResolvedValueOnce(
-        feedWith([{ title: 'Notícia B', link: 'https://b', pubDate: '2026-08-25T10:00:00Z' }]),
-      )
-      .mockResolvedValueOnce(feedWith([]))
+  it('sorts merged items from all categories by most recent first', async () => {
+    const pages = CATEGORY_LABELS.map((label, index) => pageForCategory(label, 1, 10 + index))
+    vi.stubGlobal('fetch', mockFetchSequence(pages))
+
+    const response = await request(app).get('/api/news')
+
+    const dates = response.body.map((item) => item.publishedAt)
+    const sorted = [...dates].sort().reverse()
+    expect(dates).toEqual(sorted)
+  })
+
+  it('limits each category to 5 items even when more are available', async () => {
+    const pages = CATEGORY_LABELS.map((label) => pageForCategory(label, 10))
+    vi.stubGlobal('fetch', mockFetchSequence(pages))
+
+    const response = await request(app).get('/api/news')
+
+    const perCategoryCount = CATEGORY_LABELS.map(
+      (label) => response.body.filter((item) => item.category === label).length,
+    )
+    expect(perCategoryCount).toEqual(CATEGORY_LABELS.map(() => 5))
+  })
+
+  it('skips a category that fails and still returns the others', async () => {
+    const fetchMock = vi.fn()
+    fetchMock.mockImplementationOnce(async () => ({ ok: false }))
+    CATEGORY_LABELS.slice(1).forEach((label) => {
+      fetchMock.mockImplementationOnce(async () => ({ ok: true, text: async () => pageForCategory(label, 1) }))
+    })
+    vi.stubGlobal('fetch', fetchMock)
 
     const response = await request(app).get('/api/news')
 
     expect(response.status).toBe(200)
-    expect(response.body).toHaveLength(1)
-    expect(response.body[0].title).toBe('Notícia B')
+    expect(response.body.some((item) => item.category === CATEGORY_LABELS[0])).toBe(false)
+    expect(response.body.length).toBe(CATEGORY_LABELS.length - 1)
   })
 
-  it('limits results to 12 items', async () => {
-    const manyItems = Array.from({ length: 20 }, (_, index) => ({
-      title: `Notícia ${index}`,
-      link: `https://example.com/${index}`,
-      pubDate: new Date(2026, 7, index + 1).toISOString(),
-    }))
-    parseURLMock
-      .mockResolvedValueOnce(feedWith(manyItems))
-      .mockResolvedValueOnce(feedWith([]))
-      .mockResolvedValueOnce(feedWith([]))
+  it('returns 502 and does not cache when every category fails', async () => {
+    vi.stubGlobal('fetch', vi.fn().mockResolvedValue({ ok: false }))
 
-    const response = await request(app).get('/api/news')
+    const first = await request(app).get('/api/news')
+    expect(first.status).toBe(502)
 
-    expect(response.body).toHaveLength(12)
+    vi.stubGlobal('fetch', mockAllCategoriesWithOneItemEach())
+
+    const second = await request(app).get('/api/news')
+    expect(second.status).toBe(200)
+    expect(second.body.length).toBe(CATEGORY_LABELS.length)
   })
 
   it('caches results and does not refetch within the TTL', async () => {
-    parseURLMock.mockResolvedValue(
-      feedWith([{ title: 'Notícia', link: 'https://a', pubDate: '2026-08-20T10:00:00Z' }]),
-    )
+    const fetchMock = mockAllCategoriesWithOneItemEach()
+    vi.stubGlobal('fetch', fetchMock)
 
     await request(app).get('/api/news')
     await request(app).get('/api/news')
 
-    expect(parseURLMock).toHaveBeenCalledTimes(3)
-  })
-
-  it('does not cache an empty result when every feed fails', async () => {
-    parseURLMock.mockRejectedValue(new Error('boom'))
-
-    const first = await request(app).get('/api/news')
-    expect(first.body).toEqual([])
-
-    parseURLMock.mockReset()
-    parseURLMock.mockResolvedValue(
-      feedWith([{ title: 'Notícia', link: 'https://a', pubDate: '2026-08-20T10:00:00Z' }]),
-    )
-
-    const second = await request(app).get('/api/news')
-    expect(second.body).toHaveLength(3)
+    expect(fetchMock).toHaveBeenCalledTimes(CATEGORY_LABELS.length)
   })
 })

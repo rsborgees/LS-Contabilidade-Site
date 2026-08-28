@@ -1,4 +1,5 @@
 import { render, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import { MemoryRouter } from 'react-router-dom'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { Noticias } from './Noticias'
@@ -9,18 +10,21 @@ const NEWS = [
     link: 'https://example.com/noticia-1',
     source: 'Portal Contábeis',
     publishedAt: '2026-08-24T10:00:00Z',
+    category: 'Simples Nacional',
   },
   {
     title: 'CFC divulga calendário de provas do exame de suficiência',
     link: 'https://example.com/noticia-2',
     source: 'CFC',
     publishedAt: '2026-08-22T10:00:00Z',
+    category: 'Contabilidade / Societário',
   },
   {
     title: 'Jornal Contábil traz mudanças na legislação trabalhista',
     link: 'https://example.com/noticia-3',
     source: 'Jornal Contábil',
     publishedAt: '2026-08-20T10:00:00Z',
+    category: 'Trabalho / Previdência',
   },
 ]
 
@@ -78,5 +82,33 @@ describe('Noticias', () => {
     renderNoticias()
 
     expect(await screen.findByText(/não foi possível carregar as notícias/i)).toBeInTheDocument()
+  })
+
+  it('filters the list by subject when a category is selected', async () => {
+    mockFetch(NEWS)
+    const user = userEvent.setup()
+    renderNoticias()
+
+    await screen.findByText(NEWS[0].title)
+
+    await user.selectOptions(screen.getByLabelText('Assunto'), 'Simples Nacional')
+
+    expect(screen.getByText(NEWS[0].title)).toBeInTheDocument()
+    expect(screen.queryByText(NEWS[1].title)).not.toBeInTheDocument()
+    expect(screen.queryByText(NEWS[2].title)).not.toBeInTheDocument()
+  })
+
+  it('shows all items again when switching back to "Em todos os assuntos"', async () => {
+    mockFetch(NEWS)
+    const user = userEvent.setup()
+    renderNoticias()
+
+    await screen.findByText(NEWS[0].title)
+    await user.selectOptions(screen.getByLabelText('Assunto'), 'Simples Nacional')
+    await user.selectOptions(screen.getByLabelText('Assunto'), 'Em todos os assuntos')
+
+    expect(screen.getByText(NEWS[0].title)).toBeInTheDocument()
+    expect(screen.getByText(NEWS[1].title)).toBeInTheDocument()
+    expect(screen.getByText(NEWS[2].title)).toBeInTheDocument()
   })
 })
